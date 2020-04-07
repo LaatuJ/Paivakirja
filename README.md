@@ -7,6 +7,6 @@
 * npm install
 * npm config set registry "http://registry.npmjs.org"
 
-###spawnSync ./gradlew EACCES
+### spawnSync ./gradlew EACCES
 * chmod 755 android/gradlew
 
