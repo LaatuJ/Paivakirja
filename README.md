@@ -1,12 +1,12 @@
 # Paivakirja
 
-##Ongelma tilanteissa:
+## Ongelma tilanteissa:
 
-### Cloonaamisen jälkeen ongelmia emulaattorin kanssa?
-* avaa CMD/terminal projekti kansioon
-* npm install
-* npm config set registry "http://registry.npmjs.org"
+  ### Cloonaamisen jälkeen ongelmia emulaattorin kanssa?
+  * avaa CMD/terminal projekti kansioon
+  * npm install
+  * npm config set registry "http://registry.npmjs.org"
 
-### spawnSync ./gradlew EACCES
-* chmod 755 android/gradlew
+  ### spawnSync ./gradlew EACCES
+  * chmod 755 android/gradlew
 
