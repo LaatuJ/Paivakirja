@@ -14,10 +14,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     height: 40,
     width: 40,
-    backgroundColor: '#95d1e6',
+    backgroundColor: '#e3dada',
   },
   num: {
-    color: '#ffffff',
+    color: '#000000',
     fontSize: 23,
   },
 });
