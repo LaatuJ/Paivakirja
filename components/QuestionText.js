@@ -1,6 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet, CheckBox, TextInput} from 'react-native';
-//import {CheckBox} from '@react-native-community/checkbox'
+import {View, Text, StyleSheet, TextInput} from 'react-native';
 
 const QuestionText = props => {
   return (

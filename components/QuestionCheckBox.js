@@ -1,6 +1,6 @@
 import React from 'react';
-import {View, Text, StyleSheet, CheckBox, TextInput} from 'react-native';
-//import {CheckBox} from '@react-native-community/checkbox'
+import {View, Text, StyleSheet} from 'react-native';
+import CheckBox from '@react-native-community/checkbox';
 
 
 const QuestionCheckBox = props => {
@@ -15,8 +15,8 @@ const QuestionCheckBox = props => {
 
 const styles = StyleSheet.create({
   CB: {
-    flex: 1,
-    flexDirection: 'row',
+    //flex: 1,
+    //flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
     height:70,
