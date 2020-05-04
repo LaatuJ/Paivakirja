@@ -10,8 +10,9 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@react-native-community/checkbox": "^0.3.0",
     "react": "16.9.0",
-    "react-native": "0.61.5"
+    "react-native": "^0.62.1"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
