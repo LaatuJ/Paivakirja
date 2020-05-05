@@ -15,14 +15,13 @@ const QuestionCheckBox = props => {
 
 const styles = StyleSheet.create({
   CB: {
-    //flex: 1,
-    //flexDirection: 'row',
     justifyContent: 'flex-start',
     alignItems: 'center',
     height:70,
     width: 400,
     padding:5,
-    backgroundColor: '#c7e9d6',
+    backgroundColor: 'transparent',
+    borderBottomWidth: 1,
   },
   text: {
     color: '#000000',
