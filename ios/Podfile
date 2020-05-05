@@ -36,6 +36,8 @@ target 'Paivakirja' do
 
   pod 'react-native-checkbox', :path => '../node_modules/@react-native-community/checkbox'
 
+  pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
+
   target 'PaivakirjaTests' do
     inherit! :search_paths
     # Pods for testing

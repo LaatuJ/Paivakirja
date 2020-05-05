@@ -23,7 +23,8 @@ const styles = StyleSheet.create({
     height:90,
     width: 400,
     padding:5,
-    backgroundColor: '#c7e9d6',
+    backgroundColor: 'transparent',
+    borderBottomWidth: 1,
     
   },
   text: {
