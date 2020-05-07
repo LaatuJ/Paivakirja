@@ -3,7 +3,7 @@ import {StyleSheet, View, ScrollView, Text, ImageBackground} from 'react-native'
 import QuestionCheckBox from './components/QuestionCheckBox';
 import QuestionText from './components/QuestionText';
 import Btn from './components/btn';
-
+import {CheckBox} from "native-base"
 import { createStackNavigator } from "@react-navigation/stack"
 import { NavigationContainer } from "@react-navigation/native"
 
@@ -12,10 +12,12 @@ import { NavigationContainer } from "@react-navigation/native"
 //Svelluksen aloitus sivu.
 function Start({navigation}) {
   return(
+    <ImageBackground source={require('./images/bgkuva.jpg')} style={styles.image}>
     <View style={styles.start}>
       <Text style={styles.textH1}>The Mood</Text>
-      <Btn title="Aloitetaan" onPress={() => {navigation.navigate("The Mood")}}/>
+      <Btn style={styles.button2} title="Aloitetaan" onPress={() => {navigation.navigate("The Mood")}}/>
     </View>
+    </ImageBackground>
   )
 }
 
@@ -30,7 +32,7 @@ function TheMood({navigation}) {
           <Text style={styles.textH3}>Kerro hieman tämänpäivän vihanhallinnastasi.</Text>
 
           <Text style={styles.textH2}>Mitä tapahtui?</Text>
-          <View style={styles.item}><QuestionCheckBox title="Joku kiusasiminua."/></View>
+          <View style={styles.item}><QuestionCheckBox title="Joku kiusasi minua."/></View>
           <View style={styles.item}><QuestionCheckBox style={styles.item} title="Joku otti jotain minulle kuuluvaa."/></View>
           <View style={styles.item}><QuestionCheckBox style={styles.item} title="Joku teki jotain, mistä en pitänyt."/></View>
           <View style={styles.item}><QuestionCheckBox style={styles.item} title="Tein jotain väärin."/></View>
@@ -103,13 +105,13 @@ function Settings({navigation, status}) {
     <ImageBackground source={require('./images/bgkuva.jpg')} style={styles.image} >
       <View style={styles.container}>
         <Text style={styles.textH1}>Päiväkirjat</Text>
-        <Btn style={{ backgroundColor: "green"}} title="Näytä" onPress={() => {navigation.navigate("Historia")}}/>
+        <Btn style={styles.button3} title="Näytä" onPress={() => {navigation.navigate("Historia")}}/>
         <Text style={styles.textH1}>Asetukset</Text>
         <Text style={{...styles.textH1, color: "red"}}>VAARA-ALUE</Text>
-        <Text style={styles.textH3}>Voit halutessasi tyhjentää kaikki tiedot tästä laitteesta painalamma pitkään alla olevaa nappia pitkään.</Text>
+        <Text style={styles.textH4}>Voit halutessasi tyhjentää kaikki tiedot tästä laitteesta painalamma pitkään alla olevaa nappia pitkään.</Text>
         <Text>Tietojen tila: {status}</Text>
-        <Btn title="Poista" onPress={() => {}}/>
-        <Text style={styles.textH3}>Tietoja ei voi palauttaa takaisin!</Text>
+        <Btn style={styles.button4}  title="Poista" onPress={() => {}}/>
+        <Text style={styles.textH4}>Tietoja ei voi palauttaa takaisin!</Text>
         </View>
     </ImageBackground>
   )
@@ -123,7 +125,7 @@ function History() {
         <View style={styles.container}>
           <Text style={styles.textH1}>Kirjaukset</Text>
           <Text style={styles.textH3}>Valitse joku vanhoista päiväkirjoista</Text>
-          <Text style={styles.textH3}>Plase holder</Text>
+          <Text style={styles.textH3}>Placeholder</Text>
         </View>
       </ScrollView>
     </ImageBackground>
@@ -138,7 +140,7 @@ export default function App(){
       <Main.Navigator>
         <Main.Screen options={{headerShown: false}} name="Aloitus" component={Start}/>
         <Main.Screen options={({ navigation }) => ({
-                              headerRight: props => <Btn style={{ backgroundColor: "green"}} title="Asetukset" onPress={() => {navigation.navigate("Asetukset")}}/>,
+                              headerRight: props => <Btn style={styles.button3} title="Asetukset" onPress={() => {navigation.navigate("Asetukset")}}/>,
                               })} name="The Mood" component={TheMood}/>
         <Main.Screen options={{ headerStyle: {backgroundColor: 'transparent'} }} name="Asetukset" component={Settings}/>
         <Main.Screen name="Historia" component={History}/>
@@ -148,19 +150,54 @@ export default function App(){
 };
 
 const styles = StyleSheet.create({
+
+  button2: {
+    marginRight:10,
+    marginLeft:10,
+    marginTop:400,
+    paddingTop:5,
+    paddingBottom:5,
+    paddingLeft:110,
+    paddingRight:110,
+    backgroundColor:'#f99755',
+    borderRadius:20,
+    borderWidth: 1,
+    borderColor: '#f99755'
+  },
+  button3: {
+    backgroundColor:'#f99755',
+    paddingTop:5,
+    paddingBottom:5,
+    marginRight:5,
+    borderRadius:20,
+    borderWidth: 1,
+    borderColor: '#f99755'
+  },
+  button4: {
+    backgroundColor:'red',
+    paddingTop:15,
+    paddingBottom:15,
+    paddingLeft:110,
+    paddingRight:110,
+    marginRight:5,
+    borderRadius:20,
+    borderWidth: 1,
+    borderColor: '#f99755'
+  },
   image: {
     flex:1,
     resizeMode: 'cover',
     justifyContent: 'center',
   },
   container: {
-    backgroundColor:'rgba(255,255,255, 0.6)',
+   // backgroundColor:'rgba(255,255,255, 0.6)',
+    //backgroundColor:'#f5f5f5',
     alignItems: 'center',
     flex: 1,
     justifyContent: 'center',
   },
   start: {
-    backgroundColor:'#154B46',
+    backgroundColor:'rgba(255,255,255, 0.6)',
     alignItems: 'center',
     flex: 1,
     justifyContent: 'center',
@@ -169,16 +206,25 @@ const styles = StyleSheet.create({
     paddingTop: 10,
   },
   textH3: {
-    color: '#000000',
+    color: '#575757',
     fontSize: 18,
   },
   textH2: {
-    color: '#000000',
+    color: '#364f6b',
     fontSize: 23,
+    padding:20,
+  },
+  textH4: {
+    color: 'red',
+    fontSize: 23,
+    padding:20,
+    fontWeight:'bold',
   },
   textH1:{
-    color: '#000000',
-    fontSize: 28,
+    fontSize:25,
+    fontWeight:"bold",
+    color:"#364f6b",
+    marginBottom:40,
   },
   item: {
     marginBottom: 5,
