@@ -10,6 +10,9 @@
  * npx react-native link react-native-gesture-handler
  * npm install @react-native-community/async-storage
  * npx react-native link @react-native-community/async-storage
+ * npm install peer -g
+ * npm i react-native-elements --save
+ * npx react-native link react-native-elements
 
 
 
