@@ -8,7 +8,8 @@
  * npm install @react-native-community/checkbox --save
  * npm install --save @react-native-community/masked-view
  * npx react-native link react-native-gesture-handler
- * npm install native-base --save
+ * npm install @react-native-community/async-storage
+ * npx react-native link @react-native-community/async-storage
 
 
 
