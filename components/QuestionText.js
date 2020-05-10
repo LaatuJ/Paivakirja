@@ -15,7 +15,7 @@ const QuestionText = props => {
 const styles = StyleSheet.create({
   txtInput: {
     borderWidth: 1,
-    borderColor: '#808080',
+    borderColor: '#242724',
     borderRadius:5,
     padding:10,
     width:80,
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     
   },
   text: {
-    color: '#808080',
+    color: '#242724',
     fontSize: 16,
     fontWeight:'bold',
     marginLeft:20
