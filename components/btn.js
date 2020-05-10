@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     button2: {
         marginRight:10,
         marginLeft:10,
-        marginTop:400,
+        //marginTop:400,
         paddingTop:5,
         paddingBottom:5,
         paddingLeft:110,
