@@ -15,21 +15,34 @@ const QuestionText = props => {
 const styles = StyleSheet.create({
   txtInput: {
     borderWidth: 1,
-    borderColor: '#000',
+    borderColor: '#242724',
+    borderRadius:5,
+    padding:10,
+    width:80,
+    height:30,
     alignItems: 'center',
+    marginLeft:20,
     justifyContent: 'center',
   },
   container: {
-    height:90,
-    width: 400,
     padding:5,
     backgroundColor: 'transparent',
-    borderBottomWidth: 1,
+    borderBottomWidth: 0,
+    width:"100%",
+    backgroundColor:"#fff",
+    borderRadius:20,
+    padding:10,
+    marginBottom:10,
+    flexDirection:"row",
+    height:45,
+    width: 380,
     
   },
   text: {
-    color: '#000000',
+    color: '#242724',
     fontSize: 16,
+    fontWeight:'bold',
+    marginLeft:20
   },
 });
 

@@ -30,5 +30,3 @@
 
   ### spawnSync ./gradlew EACCES
   * chmod 755 android/gradlew
-
-

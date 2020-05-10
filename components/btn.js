@@ -14,15 +14,31 @@ const Btn = props => {
 };
 
 const styles = StyleSheet.create({
-    button: {
-        backgroundColor: "red",
-        paddingVertical: 12,
-        paddingHorizontal: 25,
-        borderRadius: 25
+        button: {
+            backgroundColor: "red",
+            paddingVertical: 12,
+            paddingHorizontal: 25,
+            borderRadius: 25
+        },
+    button2: {
+        marginRight:10,
+        marginLeft:10,
+        marginTop:400,
+        paddingTop:5,
+        paddingBottom:5,
+        paddingLeft:110,
+        paddingRight:110,
+        backgroundColor:'#f99755',
+        borderRadius:20,
+        borderWidth: 1,
+        borderColor: '#f99755'
+        
     },
     buttonText: {
         color: "white",
-        fontSize: 18
+        fontSize: 18,
+        fontFamily: "Roboto"
+
     }
 })
 
