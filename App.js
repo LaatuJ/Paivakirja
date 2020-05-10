@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {StyleSheet, View, ScrollView, Text, ImageBackground} from 'react-native';
+import {StyleSheet, View, ScrollView, Text, ImageBackground, Alert} from 'react-native';
 import QuestionCheckBox from './components/QuestionCheckBox';
 import QuestionText from './components/QuestionText';
 import Btn from './components/btn';
@@ -75,18 +75,27 @@ async function GetAllKeys() {
   let key = "";
   try {
       key = await AsyncStorage.getAllKeys();
-      console.log(key)
+      //console.log(key)
       return(key)
   }   catch (error) {
       console.log(error, 'error')
   }
 }
+
+function Delete() {
+  Alert.alert("HUOM!", "Haluatko varmasti poistaa tiedot?", [
+    {text: "Peruuta", onPress: () => console.log("poisto peruttu")},
+    {text: "Kyllä", onPress: () => DeleteAll()}
+  ])
+}
+
 //Svelluksen aloitus sivu.
 function Start({navigation}) {
   return(
     <ImageBackground source={require('./images/bgkuva.jpg')} style={styles.image}>
     <View style={styles.start}>
       <Text style={styles.textH1}>The Mood</Text>
+      <View style={{marginTop:250}}></View>
       <Btn style={styles.button2} title="Aloitetaan" onPress={() => {navigation.navigate("The Mood")}}/>
     </View>
     </ImageBackground>
@@ -180,9 +189,8 @@ function Settings({navigation, status}) {
         </View>
         <View style={styles.container2}>
         <Text style={{...styles.textH1, color: "red"}}>VAARA-ALUE</Text>
-        <Text style={styles.textH4}>Voit halutessasi tyhjentää kaikki tiedot tästä laitteesta painalamma pitkään alla olevaa nappia pitkään.</Text>
-        <Text>Tietojen tila: {status}</Text>
-        <Btn style={styles.button4}  title="Poista" onPress={() => {DeleteAll()}}/>
+        <Text style={styles.textH4}>Voit halutessasi tyhjentää kaikki tiedot tästä laitteesta.</Text>
+        <Btn style={styles.button4}  title="Poista" onPress={() => {Delete()}}/>
         <Text style={styles.textH4}>Tietoja ei voi palauttaa takaisin!</Text>
         </View>
     </ImageBackground>
@@ -199,7 +207,18 @@ function History() {
   const [mitateit_, setMitateit] = useState([])
   const [viha_, setViha] = useState([])
   const [hallinta_, setHallinta] = useState([])
-  let kkk = allKeys._55
+  const [viimeksi_, setViimeksi] = useState([])
+
+  let kkk
+
+  if(allKeys._55 === null){
+    kkk = []
+  } else {
+    kkk = allKeys._55
+  }
+
+
+
   //console.log(allKeys)
   let tekstiInputit = [
     "mita_muuta",
@@ -211,8 +230,8 @@ function History() {
   ]
 
   async function GetItems(items) {
-    console.log("-------------------")
-    let mita = [], milloin = [], missa = [], kuka = [], mitateit = [], viha = [], hallinta = []
+    //console.log("-------------------")
+    let mita = [], milloin = [], missa = [], kuka = [], mitateit = [], viha = [], hallinta = [], viimeksi = []
     try {
       kaikkiItems = await AsyncStorage.getItem(items);
       kaikkiItems = JSON.parse(kaikkiItems)
@@ -221,10 +240,13 @@ function History() {
     }
     for (const [avain, vastaus] of Object.entries(kaikkiItems)) {
       if(vastaus !== false) {
+        //console.log(kaikkiItems)
         let temp = avain.split("_")
+        if(avain == "lastModified") {
+          viimeksi.push(vastaus)
+        }
         if(temp[0] == "mita") {
           if(tekstiInputit.includes(avain)) {
-
             mita.push(vastaus)
           } else {
             mita.push(labels[avain])
@@ -232,7 +254,7 @@ function History() {
         }
         if(temp[0] == "milloin") {
           if(tekstiInputit.includes(avain)) {
-            console.log(avain)
+            //console.log(avain)
             milloin.push(vastaus)
           } else {
             milloin.push(labels[avain])
@@ -240,7 +262,7 @@ function History() {
         }
         if(temp[0] == "missa") {
           if(tekstiInputit.includes(avain)) {
-            console.log(avain)
+            //console.log(avain)
             missa.push(vastaus)
           } else {
             missa.push(labels[avain])
@@ -248,7 +270,7 @@ function History() {
         }
         if(temp[0] == "kuka") {
           if(tekstiInputit.includes(avain)) {
-            console.log(avain)
+            //console.log(avain)
             kuka.push(vastaus)
           } else {
             kuka.push(labels[avain])
@@ -256,7 +278,7 @@ function History() {
         }
         if(temp[0] == "mitateit") {
           if(tekstiInputit.includes(avain)) {
-            console.log(avain)
+            //console.log(avain)
             mitateit.push(vastaus)
           } else {
             mitateit.push(labels[avain])
@@ -264,7 +286,7 @@ function History() {
         }
         if(temp[0] == "viha") {
           if(tekstiInputit.includes(avain)) {
-            console.log(avain)
+            //console.log(avain)
             viha.push(vastaus)
           } else {
             viha.push(labels[avain])
@@ -272,7 +294,7 @@ function History() {
         }
         if(temp[0] == "hallinta") {
           if(tekstiInputit.includes(avain)) {
-            console.log(avain)
+            //console.log(avain)
             hallinta.push(vastaus)
           } else {
             hallinta.push(labels[avain])
@@ -280,6 +302,7 @@ function History() {
         }
       }
     }
+    setViimeksi(viimeksi)
     setMita(mita)
     setMilloin(milloin)
     setMissa(missa)
@@ -291,38 +314,32 @@ function History() {
   return(
     <ImageBackground source={require('./images/bgkuva.jpg')} style={styles.image}>
       <View style={styles.container}>
-      <Text style={styles.textH1}>Kirjaukset</Text>
-      <Text style={styles.textH3}>Valitse joku vanhoista päiväkirjoista</Text>
-      <ScrollView horizontal={true} >
-        {kkk.map((item,key) => (
-          <Btn style={styles.button3} key={key} title={item} onPress={() => GetItems(item)} />
-        ))}
-      </ScrollView>
-      <ScrollView>
+        <Text style={styles.textH1}>Kirjaukset</Text>
+        <Text style={styles.textH3}>Valitse joku vanhoista päiväkirjoista</Text>
+        <ScrollView horizontal={true} >
+          {kkk.map((item,key) => (
+            <Btn style={styles.button3} key={key} title={item} onPress={() => GetItems(item)} />
+          ))}
+        </ScrollView>
 
-        <Text style={styles.textH1}>Mitä</Text>
-          {mita_.map((item,key) => (<Text key={key} style={styles.textH2}>{item}</Text>))}
-        <Text style={styles.textH1}>Milloin</Text>
-          {milloin_.map((item,key) => (<Text key={key} style={styles.textH2}>{item}</Text>))}
-        <Text style={styles.textH1}>Missä</Text>
-          {missa_.map((item,key) => (<Text key={key} style={styles.textH2}>{item}</Text>))}
-        <Text style={styles.textH1}>Kuka</Text>
-          {kuka_.map((item,key) => (<Text key={key} style={styles.textH2}>{item}</Text>))}
-        <Text style={styles.textH1}>Mitä teit</Text>
-          {mitateit_.map((item,key) => (<Text key={key} style={styles.textH2}>{item}</Text>))}
-        <Text style={styles.textH1}>Viha</Text>
-          {viha_.map((item,key) => (<Text key={key} style={styles.textH2}>{item}</Text>))}
-        <Text style={styles.textH1}>Hallinta</Text>
-          {hallinta_.map((item,key) => (<Text key={key} style={styles.textH2}>{item}</Text>))}
-          
-        {/* {old.map((item,key) => (
-          <View style={styles.container7}>
-            <Text key={key} style={styles.textH2}>{item}</Text> 
-          </View>
-        ))} */}
-        
-
-      </ScrollView>
+        <ScrollView style={{padding: 10}}>
+          <Text style={styles.textH1}>Mitä</Text>
+            {mita_.map((item,key) => (<View style={styles.container7}><Text key={key} style={styles.textH2}>{item}</Text></View>))}
+          <Text style={styles.textH1}>Milloin</Text>
+            {milloin_.map((item,key) => (<View style={styles.container7}><Text key={key} style={styles.textH2}>{item}</Text></View>))}
+          <Text style={styles.textH1}>Missä</Text>
+            {missa_.map((item,key) => (<View style={styles.container7}><Text key={key} style={styles.textH2}>{item}</Text></View>))}
+          <Text style={styles.textH1}>Kuka</Text>
+            {kuka_.map((item,key) => (<View style={styles.container7}><Text key={key} style={styles.textH2}>{item}</Text></View>))}
+          <Text style={styles.textH1}>Mitä teit</Text>
+            {mitateit_.map((item,key) => (<View style={styles.container7}><Text key={key} style={styles.textH2}>{item}</Text></View>))}
+          <Text style={styles.textH1}>Viha</Text>
+            {viha_.map((item,key) => (<View style={styles.container7}><Text key={key} style={styles.textH2}>{item}</Text></View>))}
+          <Text style={styles.textH1}>Hallinta</Text>
+            {hallinta_.map((item,key) => (<View style={styles.container7}><Text key={key} style={styles.textH2}>{item}</Text></View>))}
+          <Text style={styles.textH1}>Viimeksi päivitetty</Text>
+            {viimeksi_.map((item,key) => (<View style={styles.container7}><Text key={key} style={styles.textH2}>{item}</Text></View>))}
+        </ScrollView>
       </View>
 
     </ImageBackground>
@@ -338,7 +355,7 @@ export default function App(){
         <Main.Screen options={{headerShown: false}} name="Aloitus" component={Start}/>
         <Main.Screen options={({ navigation }) => ({
                               headerRight: () => <Icon.Button name="settings" backgroundColor="transparent" color="black" size={34} onPress={() => {navigation.navigate("Asetukset")}}/>,
-                              })} name="The Mood" component={TheMood}/>
+                              })} headerStyle="center" name="The Mood" component={TheMood}/>
         <Main.Screen options={{ headerStyle: {backgroundColor: 'transparent'} }} name="Asetukset" component={Settings}/>
         <Main.Screen name="Historia" component={History}/>
       </Main.Navigator>
@@ -348,9 +365,10 @@ export default function App(){
 const styles = StyleSheet.create({
 
   button2: {
+    flex: 0,
+    alignContent: "flex-end",
     marginRight:10,
     marginLeft:10,
-    marginTop:400,
     paddingTop:5,
     paddingBottom:5,
     paddingLeft:110,
@@ -440,6 +458,7 @@ const styles = StyleSheet.create({
     color: '#364f6b',
     fontSize: 23,
     padding:20,
+    alignContent: "center",
   },
   textH4: {
     color: 'red',
@@ -452,6 +471,6 @@ const styles = StyleSheet.create({
     fontSize:25,
     fontWeight:"bold",
     color:"#364f6b",
-    marginBottom:40,
+    marginBottom:30,
   },
 });
