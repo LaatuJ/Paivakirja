@@ -178,7 +178,7 @@ function Settings({navigation, status}) {
   return(
     <ImageBackground source={require('./images/bgkuva.jpg')} style={styles.image} >
       <View style={styles.container}>
-        <Text style={styles.textH1}>Päiväkirjat</Text>
+        <Text style={styles.textH6}>Päiväkirjat</Text>
         <Btn style={styles.button3} title="Näytä" onPress={() => {navigation.navigate("Historia")}}/>
         <Text style={styles.textH1}>Asetukset</Text>
         <Text style={{...styles.textH1, color: "red"}}>VAARA-ALUE</Text>
@@ -306,6 +306,12 @@ const styles = StyleSheet.create({
     borderRadius:20,
     borderWidth: 1,
     borderColor: '#f99755'
+  },
+  textH6:{
+    fontSize:25,
+    fontWeight:"bold",
+    color:"#364f6b",
+    marginBottom:5,
   },
   button4: {
     backgroundColor:'red',

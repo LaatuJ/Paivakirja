@@ -15,13 +15,13 @@ const QuestionText = props => {
 const styles = StyleSheet.create({
   txtInput: {
     borderWidth: 1,
-    borderColor: '#242724',
+    borderColor: '#808080',
     borderRadius:5,
     padding:10,
-    width:80,
-    height:30,
+    width:350,
+    height:40,
     alignItems: 'center',
-    marginLeft:20,
+    marginLeft:5,
     justifyContent: 'center',
   },
   container: {
@@ -33,16 +33,17 @@ const styles = StyleSheet.create({
     borderRadius:20,
     padding:10,
     marginBottom:10,
-    flexDirection:"row",
-    height:45,
+    height:85,
     width: 380,
+    alignItems: 'center',
     
   },
   text: {
-    color: '#242724',
+    color: '#808080',
     fontSize: 16,
     fontWeight:'bold',
-    marginLeft:20
+    marginLeft:20,
+    padding:0,
   },
 });
 
