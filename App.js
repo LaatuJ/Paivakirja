@@ -180,7 +180,9 @@ function Settings({navigation, status}) {
       <View style={styles.container}>
         <Text style={styles.textH6}>Päiväkirjat</Text>
         <Btn style={styles.button3} title="Näytä" onPress={() => {navigation.navigate("Historia")}}/>
-        <Text style={styles.textH1}>Asetukset</Text>
+        
+        </View>
+        <View style={styles.container2}>
         <Text style={{...styles.textH1, color: "red"}}>VAARA-ALUE</Text>
         <Text style={styles.textH4}>Voit halutessasi tyhjentää kaikki tiedot tästä laitteesta painalamma pitkään alla olevaa nappia pitkään.</Text>
         <Text>Tietojen tila: {status}</Text>
@@ -222,18 +224,24 @@ function History() {
   }
   return(
     <ImageBackground source={require('./images/bgkuva.jpg')} style={styles.image}>
+      <View style={styles.container}>
       <Text style={styles.textH1}>Kirjaukset</Text>
       <Text style={styles.textH3}>Valitse joku vanhoista päiväkirjoista</Text>
       <ScrollView horizontal={true} >
         {kkk.map((item,key) => (
-          <Btn key={key} title={item} style={{marginTop:5, marginLeft:5, backgroundColor:"orange"}} onPress={() => GetItems(item)} />
+          <Btn style={styles.button3} key={key} title={item} onPress={() => GetItems(item)} />
         ))}
       </ScrollView>
       <ScrollView>
         {old.map((item,key) => (
+          <View style={styles.container7}>
             <Text key={key} style={styles.textH2}>{item}</Text> 
+            </View>
         ))}
+        
       </ScrollView>
+      </View>
+
     </ImageBackground>
   ) 
 }
@@ -333,6 +341,34 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
     justifyContent: 'center',
+  },
+  container2: {
+    alignItems: 'center',
+    flex: 1,
+    justifyContent: 'center',
+    height:45,
+    width: 380,
+    backgroundColor:"#fff",
+    borderRadius:20,
+    padding:10,
+    marginBottom:10,
+    marginLeft:18,
+    //flexDirection:"row",
+    opacity:0.9,
+  },
+  container7: {
+    alignItems: 'center',
+    flex: 1,
+    justifyContent: 'center',
+    height:70,
+    width: 380,
+    backgroundColor:"#fff",
+    borderRadius:20,
+    padding:10,
+    marginBottom:10,
+    marginLeft:4,
+    //flexDirection:"row",
+    opacity:0.9,
   },
   start: {
     alignItems: 'center',
