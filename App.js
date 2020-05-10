@@ -60,9 +60,7 @@ let labels = {
 	hallinta_4:"Hyvin",
 	hallinta_5:"Todella hienosti"
 }
-
 var allKeys = GetAllKeys();
-var www = [];
 
 function DeleteAll() {
   AsyncStorage.getAllKeys((err, keys) => {
@@ -83,8 +81,6 @@ async function GetAllKeys() {
       console.log(error, 'error')
   }
 }
-
-
 //Svelluksen aloitus sivu.
 function Start({navigation}) {
   return(
@@ -194,31 +190,101 @@ function Settings({navigation, status}) {
 
 
 function History() {
-  const [old, setOld] = useState([])
-  //const [but, setBtn] = useState([])
+  const [mita_, setMita] = useState([])
+  const [milloin_, setMilloin] = useState([])
+  const [missa_, setMissa] = useState([])
+  const [kuka_, setKuka] = useState([])
+  const [mitateit_, setMitateit] = useState([])
+  const [viha_, setViha] = useState([])
+  const [hallinta_, setHallinta] = useState([])
   let kkk = allKeys._55
+  //console.log(allKeys)
+  let tekstiInputit = [
+    "mita_muuta",
+    "missa_muualla",
+    "kuka_jokumuu",
+    "mitateit_vihanhallinanmenetelma",
+    "mitateit_sosiaalinentaito",
+    "mitateit_jotainmuuta"
+  ]
 
-  console.log(kkk)
-
-  //setBtn(kkk)
-
-
-
-
-
-    async function GetItems(items) {
-    www = [];
+  async function GetItems(items) {
+    console.log("-------------------")
+    let mita = [], milloin = [], missa = [], kuka = [], mitateit = [], viha = [], hallinta = []
     try {
-      qqq = await AsyncStorage.getItem(items);
-      qqq = JSON.parse(qqq)
+      kaikkiItems = await AsyncStorage.getItem(items);
+      kaikkiItems = JSON.parse(kaikkiItems)
     } catch(error){
       console.log(error);
     }
-    for(let q in qqq){
-      if(qqq[q] === true){
-        www.push(q);
-      }}
-    setOld(www)
+    for (const [avain, vastaus] of Object.entries(kaikkiItems)) {
+      if(vastaus !== false) {
+        let temp = avain.split("_")
+        if(temp[0] == "mita") {
+          if(tekstiInputit.includes(avain)) {
+
+            mita.push(vastaus)
+          } else {
+            mita.push(labels[avain])
+          }
+        }
+        if(temp[0] == "milloin") {
+          if(tekstiInputit.includes(avain)) {
+            console.log(avain)
+            milloin.push(vastaus)
+          } else {
+            milloin.push(labels[avain])
+          }
+        }
+        if(temp[0] == "missa") {
+          if(tekstiInputit.includes(avain)) {
+            console.log(avain)
+            missa.push(vastaus)
+          } else {
+            missa.push(labels[avain])
+          }
+        }
+        if(temp[0] == "kuka") {
+          if(tekstiInputit.includes(avain)) {
+            console.log(avain)
+            kuka.push(vastaus)
+          } else {
+            kuka.push(labels[avain])
+          }
+        }
+        if(temp[0] == "mitateit") {
+          if(tekstiInputit.includes(avain)) {
+            console.log(avain)
+            mitateit.push(vastaus)
+          } else {
+            mitateit.push(labels[avain])
+          }
+        }
+        if(temp[0] == "viha") {
+          if(tekstiInputit.includes(avain)) {
+            console.log(avain)
+            viha.push(vastaus)
+          } else {
+            viha.push(labels[avain])
+          }
+        }
+        if(temp[0] == "hallinta") {
+          if(tekstiInputit.includes(avain)) {
+            console.log(avain)
+            hallinta.push(vastaus)
+          } else {
+            hallinta.push(labels[avain])
+          }
+        }
+      }
+    }
+    setMita(mita)
+    setMilloin(milloin)
+    setMissa(missa)
+    setKuka(kuka) 
+    setMitateit(mitateit)
+    setViha(viha)
+    setHallinta(hallinta)
   }
   return(
     <ImageBackground source={require('./images/bgkuva.jpg')} style={styles.image}>
@@ -230,52 +296,34 @@ function History() {
         ))}
       </ScrollView>
       <ScrollView>
-        {old.map((item,key) => (
-            <Text key={key} style={styles.textH2}>{item}</Text> 
-        ))}
+        <Text style={styles.textH1}>Mitä</Text>
+          {mita_.map((item,key) => (<Text key={key} style={styles.textH2}>{item}</Text>))}
+        <Text style={styles.textH1}>Milloin</Text>
+          {milloin_.map((item,key) => (<Text key={key} style={styles.textH2}>{item}</Text>))}
+        <Text style={styles.textH1}>Missä</Text>
+          {missa_.map((item,key) => (<Text key={key} style={styles.textH2}>{item}</Text>))}
+        <Text style={styles.textH1}>Kuka</Text>
+          {kuka_.map((item,key) => (<Text key={key} style={styles.textH2}>{item}</Text>))}
+        <Text style={styles.textH1}>Mitä teit</Text>
+          {mitateit_.map((item,key) => (<Text key={key} style={styles.textH2}>{item}</Text>))}
+        <Text style={styles.textH1}>Viha</Text>
+          {viha_.map((item,key) => (<Text key={key} style={styles.textH2}>{item}</Text>))}
+        <Text style={styles.textH1}>Hallinta</Text>
+          {hallinta_.map((item,key) => (<Text key={key} style={styles.textH2}>{item}</Text>))}
       </ScrollView>
     </ImageBackground>
   ) 
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 const Main = createStackNavigator();
 
 export default function App(){
-
   return (
     <NavigationContainer>
       <Main.Navigator>
         <Main.Screen options={{headerShown: false}} name="Aloitus" component={Start}/>
         <Main.Screen options={({ navigation }) => ({
-                              headerRight: props => <Icon.Button name="settings" backgroundColor="transparent" color="black" size={34} onPress={() => {navigation.navigate("Asetukset")}}/>,
+                              headerRight: () => <Icon.Button name="settings" backgroundColor="transparent" color="black" size={34} onPress={() => {navigation.navigate("Asetukset")}}/>,
                               })} name="The Mood" component={TheMood}/>
         <Main.Screen options={{ headerStyle: {backgroundColor: 'transparent'} }} name="Asetukset" component={Settings}/>
         <Main.Screen name="Historia" component={History}/>
