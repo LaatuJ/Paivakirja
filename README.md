@@ -1,2 +1,2 @@
-[["09.05.2020", "{\"lastModified\":\"Sat May 09 2020 16:01:01 GMT+0300 (EEST)\",\"Tein jotain väärin.\":false,\"Joku teki jotain, mistä en pitänyt.\":false,\"Joku otti jotain minulle kuuluvaa.\":false,\"Joku kiusasi minua.\":false,\"Joku alkoi riidellä tai tapella kanssani.\":false,\"Aamu\":false,\"Iltapäivä\":false,\"Ilta\":false,\"Luokassa\\/koulussa\":false,\"Asuntolassa\":false,\"Liikuntasalissa\":false}"]]
+
 
